@@ -1,421 +1,946 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" class="h-full">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Lặng Home - Local Food, Coffee & Chill Guide</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#F4F7F2',
+              100: '#EAF0E5',
+              200: '#D5E1CE',
+              500: '#6E8E59',
+              600: '#567243',
+              700: '#405631',
+              900: '#233019',
+            },
+            cream: {
+              50: '#FAF9F5',
+              100: '#F4F1EA',
+              200: '#E8E5DA',
+              300: '#DCD7C7',
+            },
+            warmText: {
+              primary: '#2D312E',
+              secondary: '#626863',
+              muted: '#8F958F',
+            }
+          }
+        }
+      }
+    }
+  </script>
   <style>
-    :root {
-      --bg-main: #0f172a;
-      --card-bg: #1e293b;
-      --accent: #10b981;
-      --accent-hover: #059669;
-      --text-main: #f8fafc;
-      --text-sub: #94a3b8;
-      --border: #334155;
-      --star: #f59e0b;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
     body {
+      background-color: #FAF9F5;
+      color: #2D312E;
       font-family: 'Plus Jakarta Sans', sans-serif;
-      background-color: var(--bg-main);
-      color: var(--text-main);
-      line-height: 1.6;
-      padding: 20px 16px;
+      overflow-x: hidden;
+      width: 100%;
     }
-
-    .container {
-      max-width: 768px;
-      margin: 0 auto;
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
     }
-
-    header {
-      text-align: center;
-      margin-bottom: 32px;
-      padding: 24px 16px;
-      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-      border-radius: 16px;
-      border: 1px solid var(--border);
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
     }
-
-    header h1 {
-      font-size: 2rem;
-      color: var(--accent);
-      margin-bottom: 8px;
+    .scroll-smooth-touch {
+      -webkit-overflow-scrolling: touch;
     }
-
-    header p {
-      color: var(--text-sub);
-      font-size: 0.95rem;
-    }
-
-    .category-title {
-      font-size: 1.35rem;
-      margin: 28px 0 16px 0;
-      color: #38bdf8;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      border-bottom: 2px solid var(--border);
-      padding-bottom: 8px;
-    }
-
-    .subcategory-title {
-      font-size: 1.1rem;
-      margin: 20px 0 12px 0;
-      color: var(--accent);
-    }
-
-    .card {
-      background-color: var(--card-bg);
-      border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 12px;
-      border: 1px solid var(--border);
-      transition: transform 0.2s ease, border-color 0.2s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-2px);
-      border-color: var(--accent);
-    }
-
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 8px;
-      gap: 12px;
-    }
-
-    .place-name {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--text-main);
-      text-decoration: none;
-    }
-
-    .place-name:hover {
-      color: var(--accent);
-    }
-
-    .distance {
-      font-size: 0.8rem;
-      background-color: rgba(16, 185, 129, 0.15);
-      color: var(--accent);
-      padding: 4px 8px;
-      border-radius: 20px;
-      white-space: nowrap;
-      font-weight: 600;
-    }
-
-    .info-line {
-      font-size: 0.88rem;
-      color: var(--text-sub);
-      margin-bottom: 6px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .rating {
-      color: var(--star);
-      font-weight: 600;
-    }
-
-    .highlights {
-      font-size: 0.9rem;
-      color: #cbd5e1;
-      margin-top: 8px;
-      padding-top: 8px;
-      border-top: 1px dashed var(--border);
-    }
-
-    .btn-maps {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 8px 14px;
-      background-color: var(--accent);
-      color: #000;
-      text-decoration: none;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 0.85rem;
-      transition: background 0.2s ease;
-    }
-
-    .btn-maps:hover {
-      background-color: var(--accent-hover);
-      color: #fff;
-    }
-
-    footer {
-      text-align: center;
-      margin-top: 40px;
-      padding: 20px;
-      color: var(--text-sub);
-      font-size: 0.85rem;
+    .glass-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
     }
   </style>
 </head>
-<body>
+<body class="min-h-full flex flex-col justify-between selection:bg-brand-100 selection:text-brand-900 pb-20">
 
-  <div class="container">
-    <header>
-      <h1>🌿 WELCOME TO LẶNG HOME 🌿</h1>
-      <p>Local Food, Coffee & Chill Guide (An Thượng & Mỹ Khê Beach)</p>
-      <p style="margin-top: 10px; font-size: 0.85rem; color: #cbd5e1;">
-        Để bạn có trải nghiệm tuyệt vời nhất, chúng mình đã tổng hợp danh sách món ăn đường phố, hải sản, quán cà phê và quán bar tốt nhất xung quanh khu vực. Các địa điểm được sắp xếp theo <b>khoảng cách từ gần đến xa</b> kèm link Google Maps trực tiếp!
+  <div class="w-full max-w-md mx-auto min-h-screen flex flex-col px-4 pt-6 pb-24 relative overflow-x-hidden">
+    
+    <!-- BACKGROUND PASTEL BLOBS -->
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-md h-72 bg-gradient-to-b from-brand-100/60 to-transparent -z-10 pointer-events-none rounded-b-3xl"></div>
+    <div class="absolute top-20 right-4 w-32 h-32 bg-amber-100/50 rounded-full blur-3xl -z-10 pointer-events-none"></div>
+
+    <!-- HEADER & LANGUAGE SWITCHER -->
+    <header class="text-center mb-5 relative">
+      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-100 text-brand-700 text-xs font-semibold mb-3 border border-brand-200">
+        <span>🏡 An Thượng & Mỹ Khê Beach</span>
+      </div>
+      
+      <h1 class="text-2xl font-bold tracking-tight text-warmText-primary mb-1">
+        🌿 LẶNG HOME 🌿
+      </h1>
+      <p id="headerSubtitle" class="text-xs font-medium text-warmText-secondary mb-4">
+        Local Food, Coffee & Chill Guide
       </p>
+
+      <!-- LANGUAGE TOGGLE -->
+      <div class="inline-flex p-1 bg-cream-200/70 rounded-full border border-cream-300/60 text-xs font-medium">
+        <button id="langViBtn" onclick="setLanguage('vi')" class="px-3 py-1 rounded-full transition-all duration-200 shadow-sm bg-white text-brand-700 font-semibold">
+          🇻🇳 Tiếng Việt
+        </button>
+        <button id="langEnBtn" onclick="setLanguage('en')" class="px-3 py-1 rounded-full transition-all duration-200 text-warmText-secondary hover:text-warmText-primary">
+          🇬🇧 English
+        </button>
+      </div>
     </header>
 
-    <!-- SECTION 1 -->
-    <h2 class="category-title">🥣 1. DANANG LOCAL SPECIALTIES & TRADITIONAL EATS</h2>
-
-    <h3 class="subcategory-title">🥖 Bánh Mì (Vietnamese Baguette)</h3>
-    
-    <div class="card">
-      <div class="card-header">
-        <a href="https://maps.google.com/?q=128+Nguy%E1%BB%85n+Duy+Hi%E1%BB%87u,+An+H%E1%BA%A3i,+%C4%90%C3%A0+N%E1%BA%B5ng" target="_blank" class="place-name">Bánh Mì Heo Nướng Lu Ông Phú Đạt</a>
-        <span class="distance">150m away - 2 min walk</span>
-      </div>
-      <div class="info-line">📍 128 Nguyễn Duy Hiệu | <span class="rating">⭐ 4.7</span> (1.1k+ reviews)</div>
-      <div class="highlights">Heo quay lu giòn da, thịt mềm mọng nước cùng sốt nhà làm đậm đà. Địa điểm ăn nhanh tuyệt vời ngay đầu phố.</div>
-      <a href="https://maps.google.com/?q=128+Nguy%E1%BB%85n+Duy+Hi%E1%BB%87u,+An+H%E1%BA%A3i,+%C4%90%C3%A0+N%E1%BA%B5ng" target="_blank" class="btn-maps">🗺️ Xem trên Google Maps</a>
+    <!-- DESCRIPTION BOX -->
+    <div class="bg-white/80 backdrop-blur border border-cream-200 rounded-2xl p-3.5 mb-5 shadow-sm text-xs leading-relaxed text-warmText-secondary">
+      <p id="introText">
+        Chào mừng bạn đến với <b>Lặng Home</b>! Để bạn trải nghiệm trọn vẹn nhất, chúng mình đã tổng hợp danh sách các địa điểm ăn uống & thư giãn hàng đầu ngay cạnh nhà. Tất cả được sắp xếp theo <b>khoảng cách gần nhất</b> kèm link Google Maps trực tiếp!
+      </p>
     </div>
 
-    <div class="card">
-      <div class="card-header">
-        <a href="https://maps.google.com/?q=62+Tr%C6%B0ng+N%E1%BB%AF+V%C6%B0%C6%A1ng,+H%E1%BA%A3i+Ch%C3%A2u,+%C4%90%C3%A0+N%E1%BA%B5ng" target="_blank" class="place-name">Bánh Mì Bà Lan</a>
-        <span class="distance">2.5km away - 6 min drive</span>
+    <!-- SEARCH BAR -->
+    <div class="relative mb-4">
+      <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-warmText-muted">
+        🔍
       </div>
-      <div class="info-line">📍 62 Trưng Nữ Vương | <span class="rating">⭐ 4.1</span> (900+ reviews)</div>
-      <div class="highlights">Thương hiệu bánh mì truyền thống huyền thoại của Đà Nẵng, nổi tiếng với pate béo ngậy và chả cắt dày dặn.</div>
-      <a href="https://maps.google.com/?q=62+Tr%C6%B0ng+N%E1%BB%AF+V%C6%B0%C6%A1ng,+H%E1%BA%A3i+Ch%C3%A2u,+%C4%90%C3%A0+N%E1%BA%B5ng" target="_blank" class="btn-maps">🗺️ Xem trên Google Maps</a>
+      <input type="text" id="searchInput" oninput="handleSearch()" placeholder="Tìm món ăn, tên quán hoặc địa chỉ..." class="w-full pl-10 pr-4 py-2.5 bg-white border border-cream-200 rounded-xl text-xs text-warmText-primary placeholder-warmText-muted focus:outline-none focus:ring-2 focus:ring-brand-500/40 focus:border-brand-500 transition shadow-sm">
     </div>
 
-    <div class="card">
-      <div class="card-header">
-        <a href="https://maps.google.com/?q=Ki%E1%BB%87t+80/10+Tr%E1%BA%A7n+Ph%C3%BA,+H%E1%BA%A3i+Ch%C3%A2u,+%C4%90%C3%A0+N%E1%BA%B5ng" target="_blank" class="place-name">Bánh Mì Cô Tiên</a>
-        <span class="distance">2.5km away - 6 min drive</span>
+    <!-- CATEGORY TABS WITH SCROLL BUTTONS -->
+    <div class="relative mb-5 group">
+      <!-- Left Arrow -->
+      <button onclick="scrollTabs(-150)" class="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-7 h-7 bg-white/95 border border-cream-300 rounded-full flex items-center justify-center text-xs text-warmText-primary shadow-md hover:bg-cream-100 focus:outline-none">
+        ‹
+      </button>
+
+      <!-- Horizontal Tab List -->
+      <div id="categoryTabs" class="flex gap-2 overflow-x-auto no-scrollbar scroll-smooth-touch py-1 px-8 cursor-grab active:cursor-grabbing">
+        <!-- Dynamic JS generation -->
       </div>
-      <div class="info-line">📍 Kiệt 80/10 Trần Phú | <span class="rating">⭐ 4.2</span> (2.1k+ reviews)</div>
-      <div class="highlights">Xe bánh mì hẻm nổi tiếng với bánh mì gà và bánh mì nướng bơ thơm lừng.</div>
-      <a href="https://maps.google.com/?q=Ki%E1%BB%87t+80/10+Tr%E1%BA%A7n+Ph%C3%BA,+H%E1%BA%A3i+Ch%C3%A2u,+%C4%90%C3%A0+N%E1%BA%B5ng" target="_blank" class="btn-maps">🗺️ Xem trên Google Maps</a>
+
+      <!-- Right Arrow -->
+      <button onclick="scrollTabs(150)" class="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-7 h-7 bg-white/95 border border-cream-300 rounded-full flex items-center justify-center text-xs text-warmText-primary shadow-md hover:bg-cream-100 focus:outline-none">
+        ›
+      </button>
     </div>
 
-    <h3 class="subcategory-title">🍜 Mỳ Quảng (Quang Style Noodles)</h3>
+    <!-- MAIN PLACES CONTAINER -->
+    <main id="placesContainer" class="space-y-3">
+      <!-- Dynamic JS generation -->
+    </main>
 
-    <div class="card">
-      <div class="card-header">
-        <a href="https://maps.google.com/?q=121+%C4%90%E1%BB%95+B%C3%A1,+Ng%C6%B0+H%C3%A0nh+S%C6%A1n,+%C4%90%C3%A0+N%E1%BA%B5ng" target="_blank" class="place-name">Mỳ Quảng Dung</a>
-        <span class="distance">200m away - 3 min walk</span>
-      </div>
-      <div class="info-line">📍 121 Đỗ Bá | <span class="rating">⭐ 4.4</span> (1.1k+ reviews)</div>
-      <div class="highlights">Quán ăn gia đình ấm cúng, nước dùng đậm đà, sợi mì dai ngon kèm rau sống tươi. Rất thích hợp cho bữa sáng chuẩn vị địa phương!</div>
-      <a href="https://maps.google.com/?q=121+%C4%90%E1%BB%95+B%C3%A1,+Ng%C6%B0+H%C3%A0nh+S%C6%A1n,+%C4%90%C3%A0+N%E1%BA%B5ng" target="_blank" class="btn-maps">🗺️ Xem trên Google Maps</a>
+    <!-- EMPTY STATE -->
+    <div id="emptyState" class="hidden text-center py-12">
+      <div class="text-3xl mb-2">🍃</div>
+      <p id="emptyStateText" class="text-xs text-warmText-muted">Không tìm thấy địa điểm phù hợp...</p>
     </div>
 
-    <div class="card">
-      <div class="card-header">
-        <a href="https://maps.google.com/?q=259+H%E1%BB%93+Nghinh,+S%C6%A1n+Tr%C3%A0,+%C4%90%C3%A0+N%E1%BA%B5ng" target="_blank" class="place-name">Mì Quảng Bà Mua</a>
-        <span class="distance">600m away - 7 min walk</span>
-      </div>
-      <div class="info-line">📍 259 Hồ Nghinh / 18 Hà Bổng | <span class="rating">⭐ > 4.2</span> (Thousand+ reviews)</div>
-      <div class="highlights">Chuỗi mì Quảng nổi tiếng nhất với menu đa dạng (gà, tôm thịt, ếch, cá lóc).</div>
-      <a href="https://maps.google.com/?q=259+H%E1%BB%93+Nghinh,+S%C6%A1n+Tr%C3%A0,+%C4%90%C3%A0+N%E1%BA%B5ng" target="_blank" class="btn-maps">🗺️ Xem trên Google Maps</a>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <a href="https://maps.google.com/?q=397+%C4%90.+Tr%E1%BA%A7n+H%C6%B0ng+%C4%90%E1%BA%A1o,+An+H%E1%BA%A3i,+%C4%90%C3%A0+N%E1%BA%B5ng" target="_blank" class="place-name">Mỳ Quảng Cô Sáu</a>
-        <span class="distance">1.5km away - 4 min drive</span>
-      </div>
-      <div class="info-line">📍 397 Trần Hưng Đạo | <span class="rating">⭐ 4.6</span> (1.9k+ reviews)</div>
-      <div class="highlights">Quán ăn bình dân gần sông Hàn với nước dùng đậm đà và bánh tráng nướng giòn rụm.</div>
-      <a href="https://maps.google.com/?q=397+%C4%90.+Tr%E1%BA%A7n+H%C6%B0ng+%C4%90%E1%BA%A1o,+An+H%E1%BA%A3i,+%C4%90%C3%A0+N%E1%BA%B5ng" target="_blank" class="btn-maps">🗺️ Xem trên Google Maps</a>
-    </div>
-
-    <h3 class="subcategory-title">🍲 Vietnamese Comfort & Home Rice</h3>
-
-    <div class="card">
-      <div class="card-header">
-        <a href="https://maps.google.com/?q=126/18+Nguy%E1%BB%85n+Duy+Hi%E1%BB%87u,+An+H%E1%BA%A3i,+%C4%90%C3%A0+N%E1%BA%B5ng" target="_blank" class="place-name">Bếp 12 Mùa - Home Cook & Local Eats</a>
-        <span class="distance">190m away - 2 min walk</span>
-      </div>
-      <div class="info-line">📍 126/18 Nguyễn Duy Hiệu | <span class="rating">⭐ 5.0</span> (379+ reviews)</div>
-      <div class="highlights">Nhà hàng gia đình ấm cúng phục vụ các món cơm nhà chuẩn vị Việt và đặc sản địa phương.</div>
-      <a href="https://maps.google.com/?q=126/18+Nguy%E1%BB%85n+Duy+Hi%E1%BB%87u,+An+H%E1%BA%A3i,+%C4%90%C3%A0+N%E1%BA%B5ng" target="_blank" class="btn-maps">🗺️ Xem trên Google Maps</a>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <a href="https://maps.google.com/?q=103+Nguy%E1%BB%85n+V%C4%83n+Tho%E1%BA%A1i,+An+H%E1%BA%A3i,+%C4%90%C3%A0+N%E1%BA%B5ng" target="_blank" class="place-name">Quán Cô Hồng - Danang Specialties</a>
-        <span class="distance">270m away - 4 min walk</span>
-      </div>
-      <div class="info-line">📍 103 Nguyễn Văn Thoại | <span class="rating">⭐ 4.5</span> (2.9k+ reviews)</div>
-      <div class="highlights">Địa điểm tuyệt vời để thưởng thức các món ăn miền Trung và mua đặc sản về làm quà.</div>
-      <a href="https://maps.google.com/?q=103+Nguy%E1%BB%85n+V%C4%83n+Tho%E1%BA%A1i,+An+H%E1%BA%A3i,+%C4%90%C3%A0+N%E1%BA%B5ng" target="_blank" class="btn-maps">🗺️ Xem trên Google Maps</a>
-    </div>
-
-    <h3 class="subcategory-title">🥓 Bánh Tráng Cuốn Thịt Heo</h3>
-
-    <div class="card">
-      <div class="card-header">
-        <a href="https://maps.google.com/?q=103+Tr%C6%B0ng+N%E1%BB%AF+V%C6%B0%C6%A1ng,+H%E1%BA%A3i+Ch%C3%A2u,+%C4%90%C3%A0+N%E1%BA%B5ng" target="_blank" class="place-name">Quán Cốm Đại Lộc</a>
-        <span class="distance">2.5km away - 6 min drive</span>
-      </div>
-      <div class="info-line">📍 103 Trưng Nữ Vương | <span class="rating">⭐ 4.7</span> (700+ reviews)</div>
-      <div class="highlights">Thịt heo luộc mềm thơm cuốn bánh tráng, rau sống tươi ngon cùng mắm nêm đậm đà.</div>
-      <a href="https://maps.google.com/?q=103+Tr%C6%B0ng+N%E1%BB%AF+V%C6%B0%C6%A1ng,+H%E1%BA%A3i+Ch%C3%A2u,+%C4%90%C3%A0+N%E1%BA%B5ng" target="_blank" class="btn-maps">🗺️ Xem trên Google Maps</a>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <a href="https://maps.google.com/?q=46+Phan+Thanh,+Thanh+Kh%C3%AA,+%C4%90%C3%A0+N%E1%BA%B5ng" target="_blank" class="place-name">Ẩm Thực Năm Hiền</a>
-        <span class="distance">3.5km away - 9 min drive</span>
-      </div>
-      <div class="info-line">📍 46 Phan Thanh | <span class="rating">⭐ > 4.0</span></div>
-      <div class="highlights">Địa điểm quen thuộc của người bản địa với bánh tráng thịt heo và bánh xèo giòn rụm.</div>
-      <a href="https://maps.google.com/?q=46+Phan+Thanh,+Thanh+Kh%C3%AA,+%C4%90%C3%A0+N%E1%BA%B5ng" target="_blank" class="btn-maps">🗺️ Xem trên Google Maps</a>
-    </div>
-
-    <h3 class="subcategory-title">🐟 Bún Chả Cá (Fish Cake Noodle Soup)</h3>
-
-    <div class="card">
-      <div class="card-header">
-        <a href="https://maps.google.com/?q=113/3+Nguy%E1%BB%85n+Ch%C3%AD+Thanh,+H%E1%BA%A3i+Ch%C3%A2u,+%C4%90%C3%A0+N%E1%BA%B5ng" target="_blank" class="place-name">Bún Chả Cá Hờn</a>
-        <span class="distance">2.5km away - 6 min drive</span>
-      </div>
-      <div class="info-line">📍 113/3 Nguyễn Chí Thanh | <span class="rating">⭐ 4.3</span> (1.8k+ reviews)</div>
-      <div class="highlights">Quán hẻm huyền thoại với nước dùng ngọt thanh từ xương cá, chả cá tự làm thơm ngon.</div>
-      <a href="https://maps.google.com/?q=113/3+Nguy%E1%BB%85n+Ch%C3%AD+Thanh,+H%E1%BA%A3i+Ch%C3%A2u,+%C4%90%C3%A0+N%E1%BA%B5ng" target="_blank" class="btn-maps">🗺️ Xem trên Google Maps</a>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <a href="https://maps.google.com/?q=109+Nguy%E1%BB%85n+Ch%C3%AD+Thanh,+H%E1%BA%A3i+Ch%C3%A2u,+%C4%90%C3%A0+N%E1%BA%B5ng" target="_blank" class="place-name">Bún Chả Cá 109</a>
-        <span class="distance">2.5km away - 6 min drive</span>
-      </div>
-      <div class="info-line">📍 109 Nguyễn Chí Thanh | <span class="rating">⭐ 4.2</span> (2.1k+ reviews)</div>
-      <div class="highlights">Một trong những quán bún chả cá lâu đời nhất Đà Nẵng, hương vị tuyệt vời giá cả phải chăng.</div>
-      <a href="https://maps.google.com/?q=109+Nguy%E1%BB%85n+Ch%C3%AD+Thanh,+H%E1%BA%A3i+Ch%C3%A2u,+%C4%90%C3%A0+N%E1%BA%B5ng" target="_blank" class="btn-maps">🗺️ Xem trên Google Maps</a>
-    </div>
-
-    <h3 class="subcategory-title">🥩 Bún Bò Huế</h3>
-
-    <div class="card">
-      <div class="card-header">
-        <a href="https://maps.google.com/?q=227+Ch%C3%A2u+Th%E1%BB%8B+V%C6%A9nh+T%E1%BA%BF,+Ng%C6%B0+H%C3%A0nh+S%C6%A1n,+%C4%90%C3%A0+N%E1%BA%B5ng" target="_blank" class="place-name">Bún Bò Huế Chà Ngoan</a>
-        <span class="distance">700m away - 8 min walk</span>
-      </div>
-      <div class="info-line">📍 227 Châu Thị Vĩnh Tế | <span class="rating">⭐ 4.3</span> (200+ reviews)</div>
-      <div class="highlights">Nước dùng thơm mùi sả và mắm ruốc, ăn kèm bắp bò và chả cua thơm ngon.</div>
-      <a href="https://maps.google.com/?q=227+Ch%C3%A2u+Th%E1%BB%8B+V%C6%A9nh+T%E1%BA%BF,+Ng%C6%B0+H%C3%A0nh+S%C6%A1n,+%C4%90%C3%A0+N%E1%BA%B5ng" target="_blank" class="btn-maps">🗺️ Xem trên Google Maps</a>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <a href="https://maps.google.com/?q=23+Tr%E1%BA%A7n+Qu%E1%BB%91c+To%E1%BA%A3n,+H%E1%BA%A3i+Ch%C3%A2u,+%C4%90%C3%A0+N%E1%BA%B5ng" target="_blank" class="place-name">Bún Bò Bà Thương</a>
-        <span class="distance">2.8km away - 7 min drive</span>
-      </div>
-      <div class="info-line">📍 23 Trần Quốc Toản | <span class="rating">⭐ 4.2</span> (600+ reviews)</div>
-      <div class="highlights">Quán bún bò lâu đời ngay trung tâm thành phố, nổi tiếng với nước dùng trong và chuẩn vị Huế.</div>
-      <a href="https://maps.google.com/?q=23+Tr%E1%BA%A7n+Qu%E1%BB%91c+To%E1%BA%A3n,+H%E1%BA%A3i+Ch%C3%A2u,+%C4%90%C3%A0+N%E1%BA%B5ng" target="_blank" class="btn-maps">🗺️ Xem trên Google Maps</a>
-    </div>
-
-    <h3 class="subcategory-title">🥞 Bánh Xèo & Nem Lụi</h3>
-
-    <div class="card">
-      <div class="card-header">
-        <a href="https://maps.google.com/?q=103+Ch%C3%A2u+Th%E1%BB%8B+V%C6%A9nh+T%E1%BA%BF,+Ng%C6%B0+H%C3%A0nh+S%C6%A1n,+%C4%90%C3%A0+N%E1%BA%B5ng" target="_blank" class="place-name">Bánh Xèo Tôm Nhảy Bé Uyên</a>
-        <span class="distance">600m away - 7 min walk</span>
-      </div>
-      <div class="info-line">📍 103 Châu Thị Vĩnh Tế | <span class="rating">⭐ 4.3</span> (350+ reviews)</div>
-      <div class="highlights">Bánh xèo giòn rụm đầy đặn tôm tươi, ăn kèm rau sống và nước chấm đậu xốt béo ngậy.</div>
-      <a href="https://maps.google.com/?q=103+Ch%C3%A2u+Th%E1%BB%8B+V%C6%A9nh+T%E1%BA%BF,+Ng%C6%B0+H%C3%A0nh+S%C6%A1n,+%C4%90%C3%A0+N%E1%BA%B5ng" target="_blank" class="btn-maps">🗺️ Xem trên Google Maps</a>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <a href="https://maps.google.com/?q=280/23+Ho%C3%A0ng+Di%E1%BB%87u,+H%E1%BA%A3i+Ch%C3%A2u,+%C4%90%C3%A0+N%E1%BA%B5ng" target="_blank" class="place-name">Bánh Xèo Bà Dưỡng</a>
-        <span class="distance">2.5km away - 7 min drive</span>
-      </div>
-      <div class="info-line">📍 K280/23 Hoàng Diệu | <span class="rating">⭐ 4.3</span> (10.9k+ reviews)</div>
-      <div class="highlights">Điểm đến bánh xèo và nem lụi nổi tiếng nhất Đà Nẵng.</div>
-      <a href="https://maps.google.com/?q=280/23+Ho%C3%A0ng+Di%E1%BB%87u,+H%E1%BA%A3i+Ch%C3%A2u,+%C4%90%C3%A0+N%E1%BA%B5ng" target="_blank" class="btn-maps">🗺️ Xem trên Google Maps</a>
-    </div>
-
-    <!-- SECTION 2 -->
-    <h2 class="category-title">🦐 2. SEAFOOD & DINING</h2>
-
-    <div class="card">
-      <div class="card-header">
-        <a href="https://maps.google.com/?q=26+T%C3%B4+Hi%E1%BA%BFn+Th%C3%A0nh,+An+H%E1%BA%A3i,+%C4%90%C3%A0+N%E1%BA%B5ng" target="_blank" class="place-name">Mộc Quán Seafood</a>
-        <span class="distance">400m away - 5 min walk</span>
-      </div>
-      <div class="info-line">📍 26 Tô Hiến Thành | <span class="rating">⭐ 4.8</span> (32k+ reviews)</div>
-      <div class="highlights">Nhà hàng hải sản sân vườn siêu đỉnh. Hải sản sống bắt tại bể, chế biến phong phú (Khuyên nên đặt bàn trước).</div>
-      <a href="https://maps.google.com/?q=26+T%C3%B4+Hi%E1%BA%BFn+Th%C3%A0nh,+An+H%E1%BA%A3i,+%C4%90%C3%A0+N%E1%BA%B5ng" target="_blank" class="btn-maps">🗺️ Xem trên Google Maps</a>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <a href="https://maps.google.com/?q=39+Tr%E1%BA%A7n+B%E1%BA%A1ch+%C4%90%E1%BA%B1ng,+Ng%C6%B0+H%C3%A0nh+S%C6%A1n,+%C4%90%C3%A0+N%E1%BA%B5ng" target="_blank" class="place-name">Thèm Hải Sản</a>
-        <span class="distance">700m away - 8 min walk</span>
-      </div>
-      <div class="info-line">📍 39 Trần Bạch Đằng | <span class="rating">⭐ 4.8</span> (10k+ reviews)</div>
-      <div class="highlights">Hải sản tươi sống, giá niêm yết rõ ràng, phục vụ nhanh ngay khu An Thượng.</div>
-      <a href="https://maps.google.com/?q=39+Tr%E1%BA%A7n+B%E1%BA%A1ch+%C4%90%E1%BA%B1ng,+Ng%C6%B0+H%C3%A0nh+S%C6%A1n,+%C4%90%C3%A0+N%E1%BA%B5ng" target="_blank" class="btn-maps">🗺️ Xem trên Google Maps</a>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <a href="https://maps.google.com/?q=101+H%E1%BB%93+Nghinh,+S%C6%A1n+Tr%C3%A0,+%C4%90%C3%A0+N%E1%BA%B5ng" target="_blank" class="place-name">Nhà An - Vietnamese Local Food & Seafood</a>
-        <span class="distance">900m away - 3 min drive</span>
-      </div>
-      <div class="info-line">📍 101 Hồ Nghinh | <span class="rating">⭐ 4.8</span> (4.4k+ reviews)</div>
-      <div class="highlights">Không gian ấm cúng phục vụ các món ăn Việt Nam truyền thống và hải sản tươi ngon.</div>
-      <a href="https://maps.google.com/?q=101+H%E1%BB%93+Nghinh,+S%C6%A1n+Tr%C3%A0,+%C4%90%C3%A0+N%E1%BA%B5ng" target="_blank" class="btn-maps">🗺️ Xem trên Google Maps</a>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <a href="https://maps.google.com/?q=354/1+V%C3%B5+Nguy%E1%BB%85n+Gi%C3%A1p,+Ng%C6%B0+H%C3%A0nh+S%C6%A1n,+%C4%90%C3%A0+N%E1%BA%B5ng" target="_blank" class="place-name">Hải Sản Thời Cổ</a>
-        <span class="distance">1.2km away - 3 min drive</span>
-      </div>
-      <div class="info-line">📍 354/1 Võ Nguyên Giáp | <span class="rating">⭐ 4.7</span> (3.9k+ reviews)</div>
-      <div class="highlights">Quán ăn bình dân gần biển Mỹ Khê, nổi tiếng với các món nướng và hấp đậm đà.</div>
-      <a href="https://maps.google.com/?q=354/1+V%C3%B5+Nguy%E1%BB%85n+Gi%C3%A1p,+Ng%C6%B0+H%C3%A0nh+S%C6%A1n,+%C4%90%C3%A0+N%E1%BA%B5ng" target="_blank" class="btn-maps">🗺️ Xem trên Google Maps</a>
-    </div>
-
-    <div class="card">
-      <div class="card-header">
-        <a href="https://maps.google.com/?q=202+V%C3%B5+Nguy%E1%BB%85n+Gi%C3%A1p,+S%C6%A1n+Tr%C3%A0,+%C4%90%C3%A0+N%E1%BA%B5ng" target="_blank" class="place-name">Hải Sản Bé Biển</a>
-        <span class="distance">1.5km away - 4 min drive</span>
-      </div>
-      <div class="info-line">📍 202 Võ Nguyên Giáp | <span class="rating">⭐ 4.8</span> (5.5k+ reviews)</div>
-      <div class="highlights">Không gian thoáng mát sát biển, chọn hải sản tươi sống trực tiếp tại bể.</div>
-      <a href="https://maps.google.com/?q=202+V%C3%B5+Nguy%E1%BB%85n+Gi%C3%A1p,+S%C6%A1n+Tr%C3%A0,+%C4%90%C3%A0+N%E1%BA%B5ng" target="_blank" class="btn-maps">🗺️ Xem trên Google Maps</a>
-    </div>
-
-    <!-- SECTION 3 -->
-    <h2 class="category-title">☕ 3. COFFEE & RELAXATION</h2>
-    <p style="color: var(--text-sub); font-size: 0.9rem; margin-bottom: 12px;">Các quán cà phê và không gian thư giãn tuyệt vời xung quanh Lặng Home đang tiếp tục được cập nhật...</p>
-
-    <footer>
-      <p>© Lặng Home DaNang Handbook - Have a wonderful stay!</p>
+    <!-- FOOTER -->
+    <footer class="mt-8 text-center text-[11px] text-warmText-muted border-t border-cream-200 pt-4">
+      <p>© Lặng Home DaNang Handbook</p>
+      <p class="mt-0.5">Have a wonderful stay with us! 🌿</p>
     </footer>
+
   </div>
 
+  <!-- FIXED BOTTOM NAV (MOBILE) -->
+  <nav class="fixed bottom-0 inset-x-0 bg-white/90 backdrop-blur-md border-t border-cream-200 py-2 px-6 z-50">
+    <div class="max-w-md mx-auto flex justify-around items-center text-[10px] font-medium text-warmText-secondary">
+      <button onclick="filterMainCategory('all')" class="flex flex-col items-center gap-0.5 text-brand-600">
+        <span class="text-base">📍</span>
+        <span id="navAllText">Tất cả</span>
+      </button>
+      <button onclick="filterMainCategory('food')" class="flex flex-col items-center gap-0.5 hover:text-brand-600 transition">
+        <span class="text-base">🥣</span>
+        <span id="navFoodText">Đặc sản</span>
+      </button>
+      <button onclick="filterMainCategory('seafood')" class="flex flex-col items-center gap-0.5 hover:text-brand-600 transition">
+        <span class="text-base">🦐</span>
+        <span id="navSeafoodText">Hải sản</span>
+      </button>
+      <button onclick="filterMainCategory('coffee')" class="flex flex-col items-center gap-0.5 hover:text-brand-600 transition">
+        <span class="text-base">☕</span>
+        <span id="navCoffeeText">Cà phê</span>
+      </button>
+      <button onclick="filterMainCategory('bar')" class="flex flex-col items-center gap-0.5 hover:text-brand-600 transition">
+        <span class="text-base">🍹</span>
+        <span id="navBarText">Bar/Pub</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- JAVASCRIPT DATA & LOGIC -->
+  <script>
+    let currentLang = 'vi';
+    let currentCategory = 'all';
+
+    const translations = {
+      vi: {
+        subtitle: "Cẩm Nang Ăn Uống & Thư Giãn Bản Địa",
+        intro: "Chào mừng bạn đến với <b>Lặng Home</b>! Để bạn trải nghiệm trọn vẹn nhất, chúng mình đã tổng hợp danh sách các địa điểm ăn uống & thư giãn hàng đầu ngay cạnh nhà. Tất cả được sắp xếp theo <b>khoảng cách gần nhất</b> kèm link Google Maps trực tiếp!",
+        searchPlaceholder: "Tìm món ăn, tên quán hoặc địa chỉ...",
+        empty: "Không tìm thấy địa điểm nào phù hợp...",
+        mapsBtn: "🗺️ Mở Google Maps",
+        reviews: "đánh giá",
+        navAll: "Tất cả",
+        navFood: "Đặc sản",
+        navSeafood: "Hải sản",
+        navCoffee: "Cà phê",
+        navBar: "Bar/Pub",
+        catAll: "✨ Tất cả",
+        catBanhMi: "🥖 Bánh Mì",
+        catMyQuang: "🍜 Mỳ Quảng",
+        catComNha: "🍲 Cơm Nhà",
+        catBanhTrang: "🥓 Bánh Tráng Cuốn",
+        catBunChaCa: "🐟 Bún Chả Cá",
+        catBunBo: "🥩 Bún Bò Huế",
+        catBanhXeo: "🥞 Bánh Xèo",
+        catHaiSan: "🦐 Hải Sản",
+        catCoffee: "☕ Cà Phê",
+        catNightlife: "🍹 Bar & Pub"
+      },
+      en: {
+        subtitle: "Local Food, Coffee & Chill Guide",
+        intro: "Welcome to <b>Lặng Home</b>! To ensure you have an unforgettable stay without searching hassle, we curated the best local eats, seafood, coffee & bars around our neighborhood. Sorted strictly by <b>proximity</b> with direct Google Maps links!",
+        searchPlaceholder: "Search food, place name or address...",
+        empty: "No matching places found...",
+        mapsBtn: "🗺️ Open Google Maps",
+        reviews: "reviews",
+        navAll: "All",
+        navFood: "Eats",
+        navSeafood: "Seafood",
+        navCoffee: "Coffee",
+        navBar: "Bar/Pub",
+        catAll: "✨ All Places",
+        catBanhMi: "🥖 Baguette",
+        catMyQuang: "🍜 Quang Noodles",
+        catComNha: "🍲 Home Rice",
+        catBanhTrang: "🥓 Pork Rolls",
+        catBunChaCa: "🐟 Fish Cake Soup",
+        catBunBo: "🥩 Hue Beef Noodles",
+        catBanhXeo: "🥞 Crispy Pancakes",
+        catHaiSan: "🦐 Seafood",
+        catCoffee: "☕ Coffee",
+        catNightlife: "🍹 Bars & Pubs"
+      }
+    };
+
+    const places = [
+      // 🥖 Bánh Mì
+      {
+        id: "bm1",
+        cat: "banhmi",
+        mainCat: "food",
+        name: "Bánh Mì Heo Nướng Lu Ông Phú Đạt",
+        dist: "150m away - 2 min walk",
+        distVi: "Cách 150m - 2 phút đi bộ",
+        addr: "128 Nguyễn Duy Hiệu",
+        rating: "4.7⭐",
+        reviews: "1.1k+",
+        descVi: "Heo quay lu giòn da, thịt mềm mọng nước cùng sốt nhà làm đậm đà. Địa điểm ăn nhanh tuyệt vời ngay đầu phố.",
+        descEn: "Clay-pot roasted pork with crispy crackling skin, juicy meat, and savory house sauce. A delicious quick bite right up the street.",
+        map: "https://maps.google.com/?q=128+Nguy%E1%BB%85n+Duy+Hi%E1%BB%87u,+An+H%E1%BA%A3i,+%C4%90%C3%A0+N%E1%BA%B5ng"
+      },
+      {
+        id: "bm2",
+        cat: "banhmi",
+        mainCat: "food",
+        name: "Bánh Mì Bà Lan",
+        dist: "2.5km away - 6 min drive",
+        distVi: "Cách 2.5km - 6 phút đi xe",
+        addr: "62 Trưng Nữ Vương",
+        rating: "4.1⭐",
+        reviews: "900+",
+        descVi: "Thương hiệu bánh mì truyền thống huyền thoại của Đà Nẵng, nổi tiếng với pate béo ngậy và chả cắt dày dặn.",
+        descEn: "One of Danang's legendary traditional baguette brands, famous for rich pate and thick cold cuts.",
+        map: "https://maps.google.com/?q=62+Tr%C6%B0ng+N%E1%BB%AF+V%C6%B0%C6%A1ng,+H%E1%BA%A3i+Ch%C3%A2u,+%C4%90%C3%A0+N%E1%BA%B5ng"
+      },
+      {
+        id: "bm3",
+        cat: "banhmi",
+        mainCat: "food",
+        name: "Bánh Mì Cô Tiên",
+        dist: "2.5km away - 6 min drive",
+        distVi: "Cách 2.5km - 6 phút đi xe",
+        addr: "Kiệt 80/10 Trần Phú",
+        rating: "4.2⭐",
+        reviews: "2.1k+",
+        descVi: "Xe bánh mì hẻm nổi tiếng với bánh mì gà và bánh mì nướng bơ thơm lừng.",
+        descEn: "A popular alley cart famed for chicken bánh mì and toasted buttered baguettes.",
+        map: "https://maps.google.com/?q=Ki%E1%BB%87t+80/10+Tr%E1%BA%A7n+Ph%C3%BA,+H%E1%BA%A3i+Ch%C3%A2u,+%C4%90%C3%A0+N%E1%BA%B5ng"
+      },
+
+      // 🍜 Mỳ Quảng
+      {
+        id: "mq1",
+        cat: "myquang",
+        mainCat: "food",
+        name: "Mỳ Quảng Dung",
+        dist: "200m away - 3 min walk",
+        distVi: "Cách 200m - 3 phút đi bộ",
+        addr: "121 Đỗ Bá",
+        rating: "4.4⭐",
+        reviews: "1.1k+",
+        descVi: "Quán ăn gia đình ấm cúng, nước dùng đậm đà, sợi mì dai ngon kèm rau sống tươi.",
+        descEn: "Authentic local family eatery serving flavorful broth, chewy rice noodles, and fresh greens.",
+        map: "https://maps.google.com/?q=121+%C4%90%E1%BB%95+B%C3%A1,+Ng%C6%B0+H%C3%A0nh+S%C6%A1n,+%C4%90%C3%A0+N%E1%BA%B5ng"
+      },
+      {
+        id: "mq2",
+        cat: "myquang",
+        mainCat: "food",
+        name: "Mì Quảng Bà Mua",
+        dist: "600m away - 7 min walk",
+        distVi: "Cách 600m - 7 phút đi bộ",
+        addr: "259 Hồ Nghinh / 18 Hà Bổng",
+        rating: "> 4.2⭐",
+        reviews: "Thousands",
+        descVi: "Chuỗi mì Quảng nổi tiếng nhất với menu đa dạng (gà, tôm thịt, ếch, cá lóc).",
+        descEn: "Most renowned chain for Mỳ Quảng with diverse toppings (chicken, shrimp & pork, frog, snakehead fish).",
+        map: "https://maps.google.com/?q=259+H%E1%BB%93+Nghinh,+S%C6%A1n+Tr%C3%A0,+%C4%90%C3%A0+N%E1%BA%B5ng"
+      },
+      {
+        id: "mq3",
+        cat: "myquang",
+        mainCat: "food",
+        name: "Mỳ Quảng Cô Sáu",
+        dist: "1.5km away - 4 min drive",
+        distVi: "Cách 1.5km - 4 phút đi xe",
+        addr: "397 Trần Hưng Đạo",
+        rating: "4.6⭐",
+        reviews: "1.9k+",
+        descVi: "Quán ăn bình dân gần sông Hàn với nước dùng đậm đà và bánh tráng nướng giòn rụm.",
+        descEn: "Traditional humble eatery near the Han River, serving rich broth and crispy rice crackers.",
+        map: "https://maps.google.com/?q=397+%C4%90.+Tr%E1%BA%A7n+H%C6%B0ng+%C4%90%E1%BA%A1o,+An+H%E1%BA%A3i,+%C4%90%C3%A0+N%E1%BA%B5ng"
+      },
+
+      // 🍲 Cơm Nhà
+      {
+        id: "cn1",
+        cat: "comnha",
+        mainCat: "food",
+        name: "Bếp 12 Mùa - Home Cook & Local Eats",
+        dist: "190m away - 2 min walk",
+        distVi: "Cách 190m - 2 phút đi bộ",
+        addr: "126/18 Nguyễn Duy Hiệu",
+        rating: "5.0⭐",
+        reviews: "379+",
+        descVi: "Nhà hàng gia đình ấm cúng phục vụ các món cơm nhà chuẩn vị Việt và đặc sản địa phương.",
+        descEn: "Cozy family restaurant offering authentic home-cooked Vietnamese meals and local specialties.",
+        map: "https://maps.google.com/?q=126/18+Nguy%E1%BB%85n+Duy+Hi%E1%BB%87u,+An+H%E1%BA%A3i,+%C4%90%C3%A0+N%E1%BA%B5ng"
+      },
+      {
+        id: "cn2",
+        cat: "comnha",
+        mainCat: "food",
+        name: "Quán Cô Hồng - Danang Specialties",
+        dist: "270m away - 4 min walk",
+        distVi: "Cách 270m - 4 phút đi bộ",
+        addr: "103 Nguyễn Văn Thoại",
+        rating: "4.5⭐",
+        reviews: "2.9k+",
+        descVi: "Địa điểm tuyệt vời để thưởng thức các món ăn miền Trung và mua đặc sản về làm quà.",
+        descEn: "Great spot to taste savory Central dishes and pick up local edible souvenirs.",
+        map: "https://maps.google.com/?q=103+Nguy%E1%BB%85n+V%C4%83n+Tho%E1%BA%A1i,+An+H%E1%BA%A3i,+%C4%90%C3%A0+N%E1%BA%B5ng"
+      },
+
+      // 🥓 Bánh Tráng Cuốn Thịt Heo
+      {
+        id: "bt1",
+        cat: "banhtrang",
+        mainCat: "food",
+        name: "Quán Cốm Đại Lộc",
+        dist: "2.5km away - 6 min drive",
+        distVi: "Cách 2.5km - 6 phút đi xe",
+        addr: "103 Trưng Nữ Vương",
+        rating: "4.7⭐",
+        reviews: "700+",
+        descVi: "Thịt heo luộc mềm thơm cuốn bánh tráng, rau sống tươi ngon cùng mắm nêm đậm đà.",
+        descEn: "Tender boiled pork rolled in soft rice paper with generous wild herbs and savory fermented anchovy sauce.",
+        map: "https://maps.google.com/?q=103+Tr%C6%B0ng+N%E1%BB%AF+V%C6%B0%C6%A1ng,+H%E1%BA%A3i+Ch%C3%A2u,+%C4%90%C3%A0+N%E1%BA%B5ng"
+      },
+      {
+        id: "bt2",
+        cat: "banhtrang",
+        mainCat: "food",
+        name: "Ẩm Thực Năm Hiền",
+        dist: "3.5km away - 9 min drive",
+        distVi: "Cách 3.5km - 9 phút đi xe",
+        addr: "46 Phan Thanh",
+        rating: "> 4.0⭐",
+        reviews: "Local fav",
+        descVi: "Địa điểm quen thuộc của người bản địa với bánh tráng thịt heo và bánh xèo giòn rụm.",
+        descEn: "A local favorite for pork rolls and crispy sizzling pancakes with rich dipping sauce.",
+        map: "https://maps.google.com/?q=46+Phan+Thanh,+Thanh+Kh%C3%AA,+%C4%90%C3%A0+N%E1%BA%B5ng"
+      },
+
+      // 🐟 Bún Chả Cá
+      {
+        id: "bcc1",
+        cat: "bunchaca",
+        mainCat: "food",
+        name: "Bún Chả Cá Hờn",
+        dist: "2.5km away - 6 min drive",
+        distVi: "Cách 2.5km - 6 phút đi xe",
+        addr: "113/3 Nguyễn Chí Thanh",
+        rating: "4.3⭐",
+        reviews: "1.8k+",
+        descVi: "Quán hẻm huyền thoại với nước dùng ngọt thanh từ xương cá, chả cá tự làm thơm ngon.",
+        descEn: "Legendary alley eatery with clear sweet fish bone broth, homemade fried fish cakes, and pumpkin.",
+        map: "https://maps.google.com/?q=113/3+Nguy%E1%BB%85n+Ch%C3%AD+Thanh,+H%E1%BA%A3i+Ch%C3%A2u,+%C4%90%C3%A0+N%E1%BA%B5ng"
+      },
+      {
+        id: "bcc2",
+        cat: "bunchaca",
+        mainCat: "food",
+        name: "Bún Chả Cá 109",
+        dist: "2.5km away - 6 min drive",
+        distVi: "Cách 2.5km - 6 phút đi xe",
+        addr: "109 Nguyễn Chí Thanh",
+        rating: "4.2⭐",
+        reviews: "2.1k+",
+        descVi: "Một trong những quán bún chả cá lâu đời nhất Đà Nẵng, hương vị tuyệt vời giá cả phải chăng.",
+        descEn: "One of Danang's oldest fish cake noodle shops, offering great flavor at budget-friendly prices.",
+        map: "https://maps.google.com/?q=109+Nguy%E1%BB%85n+Ch%C3%AD+Thanh,+H%E1%BA%A3i+Ch%C3%A2u,+%C4%90%C3%A0+N%E1%BA%B5ng"
+      },
+
+      // 🥩 Bún Bò Huế
+      {
+        id: "bb1",
+        cat: "bunbo",
+        mainCat: "food",
+        name: "Bún Bò Huế Chà Ngoan",
+        dist: "700m away - 8 min walk",
+        distVi: "Cách 700m - 8 phút đi bộ",
+        addr: "227 Châu Thị Vĩnh Tế",
+        rating: "4.3⭐",
+        reviews: "200+",
+        descVi: "Nước dùng thơm mùi sả và mắm ruốc, ăn kèm bắp bò và chả cua thơm ngon.",
+        descEn: "A rich, lemongrass and shrimp-paste infused soup topped with beef shank and crab patties.",
+        map: "https://maps.google.com/?q=227+Ch%C3%A2u+Th%E1%BB%8B+V%C6%A9nh+T%E1%BA%BF,+Ng%C6%B0+H%C3%A0nh+S%C6%A1n,+%C4%90%C3%A0+N%E1%BA%B5ng"
+      },
+      {
+        id: "bb2",
+        cat: "bunbo",
+        mainCat: "food",
+        name: "Bún Bò Bà Thương",
+        dist: "2.8km away - 7 min drive",
+        distVi: "Cách 2.8km - 7 phút đi xe",
+        addr: "23 Trần Quốc Toản",
+        rating: "4.2⭐",
+        reviews: "600+",
+        descVi: "Quán bún bò lâu đời ngay trung tâm thành phố, nổi tiếng với nước dùng trong và chuẩn vị Huế.",
+        descEn: "Long-standing city center spot famous for its clear, fragrant, authentic Hue broth.",
+        map: "https://maps.google.com/?q=23+Tr%E1%BA%A7n+Qu%E1%BB%91c+To%E1%BA%A3n,+H%E1%BA%A3i+Ch%C3%A2u,+%C4%90%C3%A0+N%E1%BA%B5ng"
+      },
+
+      // 🥞 Bánh Xèo
+      {
+        id: "bx1",
+        cat: "banhxeo",
+        mainCat: "food",
+        name: "Bánh Xèo Tôm Nhảy Bé Uyên",
+        dist: "600m away - 7 min walk",
+        distVi: "Cách 600m - 7 phút đi bộ",
+        addr: "103 Châu Thị Vĩnh Tế",
+        rating: "4.3⭐",
+        reviews: "350+",
+        descVi: "Bánh xèo giòn rụm đầy đặn tôm tươi, ăn kèm rau sống và nước chấm đậu xốt béo ngậy.",
+        descEn: "Crispy rice pancakes loaded with fresh jumping prawns, served with herbs and peanut dipping sauce.",
+        map: "https://maps.google.com/?q=103+Ch%C3%A2u+Th%E1%BB%8B+V%C6%A9nh+T%E1%BA%BF,+Ng%C6%B0+H%C3%A0nh+S%C6%A1n,+%C4%90%C3%A0+N%E1%BA%B5ng"
+      },
+      {
+        id: "bx2",
+        cat: "banhxeo",
+        mainCat: "food",
+        name: "Bánh Xèo Bà Dưỡng",
+        dist: "2.5km away - 7 min drive",
+        distVi: "Cách 2.5km - 7 phút đi xe",
+        addr: "K280/23 Hoàng Diệu",
+        rating: "4.3⭐",
+        reviews: "10.9k+",
+        descVi: "Điểm đến bánh xèo và nem lụi nổi tiếng nhất Đà Nẵng.",
+        descEn: "Danang's most famous destination for savory crispy pancakes and grilled pork skewers (Nem lụi).",
+        map: "https://maps.google.com/?q=280/23+Ho%C3%A0ng+Di%E1%BB%87u,+H%E1%BA%A3i+Ch%C3%A2u,+%C4%90%C3%A0+N%E1%BA%B5ng"
+      },
+
+      // 🦐 Hải Sản
+      {
+        id: "hs1",
+        cat: "haisan",
+        mainCat: "seafood",
+        name: "Mộc Quán Seafood",
+        dist: "400m away - 5 min walk",
+        distVi: "Cách 400m - 5 phút đi bộ",
+        addr: "26 Tô Hiến Thành",
+        rating: "4.8⭐",
+        reviews: "32k+",
+        descVi: "Nhà hàng hải sản sân vườn siêu đỉnh. Hải sản sống bắt tại bể, chế biến phong phú (Khuyên nên đặt bàn trước).",
+        descEn: "A top-rated garden-style seafood spot. Super fresh live catches from tanks, expertly prepared.",
+        map: "https://maps.google.com/?q=26+T%C3%B4+Hi%E1%BA%BFn+Th%C3%A0nh,+An+H%E1%BA%A3i,+%C4%90%C3%A0+N%E1%BA%B5ng"
+      },
+      {
+        id: "hs2",
+        cat: "haisan",
+        mainCat: "seafood",
+        name: "Thèm Hải Sản",
+        dist: "700m away - 8 min walk",
+        distVi: "Cách 700m - 8 phút đi bộ",
+        addr: "39 Trần Bạch Đằng",
+        rating: "4.8⭐",
+        reviews: "10k+",
+        descVi: "Hải sản tươi sống, giá niêm yết rõ ràng, phục vụ nhanh ngay khu An Thượng.",
+        descEn: "Fresh seafood with clear pricing and prompt service in the tourist district.",
+        map: "https://maps.google.com/?q=39+Tr%E1%BA%A7n+B%E1%BA%A1ch+%C4%90%E1%BA%B1ng,+Ng%C6%B0+H%C3%A0nh+S%C6%A1n,+%C4%90%C3%A0+N%E1%BA%B5ng"
+      },
+      {
+        id: "hs3",
+        cat: "haisan",
+        mainCat: "seafood",
+        name: "Nhà An - Local Food & Seafood",
+        dist: "900m away - 3 min drive",
+        distVi: "Cách 900m - 3 phút đi xe",
+        addr: "101 Hồ Nghinh",
+        rating: "4.8⭐",
+        reviews: "4.4k+",
+        descVi: "Không gian ấm cúng phục vụ các món ăn Việt Nam truyền thống và hải sản tươi ngon.",
+        descEn: "Warm, cozy atmosphere serving traditional Vietnamese recipes alongside fresh seafood.",
+        map: "https://maps.google.com/?q=101+H%E1%BB%93+Nghinh,+S%C6%A1n+Tr%C3%A0,+%C4%90%C3%A0+N%E1%BA%B5ng"
+      },
+      {
+        id: "hs4",
+        cat: "haisan",
+        mainCat: "seafood",
+        name: "Hải Sản Thời Cổ",
+        dist: "1.2km away - 3 min drive",
+        distVi: "Cách 1.2km - 3 phút đi xe",
+        addr: "354/1 Võ Nguyên Giáp",
+        rating: "4.7⭐",
+        reviews: "3.9k+",
+        descVi: "Quán ăn bình dân gần biển Mỹ Khê, nổi tiếng với các món nướng và hấp đậm đà.",
+        descEn: "Popular casual venue near Mỹ Khê beach, famous for flavorful grilled and steamed seafood dishes.",
+        map: "https://maps.google.com/?q=354/1+V%C3%B5+Nguy%E1%BB%85n+Gi%C3%A1p,+Ng%C6%B0+H%C3%A0nh+S%C6%A1n,+%C4%90%C3%A0+N%E1%BA%B5ng"
+      },
+      {
+        id: "hs5",
+        cat: "haisan",
+        mainCat: "seafood",
+        name: "Hải Sản Bé Biển",
+        dist: "1.5km away - 4 min drive",
+        distVi: "Cách 1.5km - 4 phút đi xe",
+        addr: "202 Võ Nguyên Giáp",
+        rating: "4.8⭐",
+        reviews: "5.5k+",
+        descVi: "Không gian thoáng mát sát biển, chọn hải sản tươi sống trực tiếp tại bể.",
+        descEn: "Airy beachfront venue featuring live tank selection and ocean breeze.",
+        map: "https://maps.google.com/?q=202+V%C3%B5+Nguy%E1%BB%85n+Gi%C3%A1p,+S%C6%A1n+Tr%C3%A0,+%C4%90%C3%A0+N%E1%BA%B5ng"
+      },
+
+      // ☕ Cà Phê
+      {
+        id: "cf1",
+        cat: "coffee",
+        mainCat: "coffee",
+        name: "Always August",
+        dist: "140m away - 2 min walk",
+        distVi: "Cách 140m - 2 phút đi bộ",
+        addr: "115 Đặng Vũ Hỷ",
+        rating: "4.9⭐",
+        reviews: "160+",
+        descVi: "Quán cà phê xinh xắn, yên tĩnh, thích hợp đọc sách hoặc làm việc laptop.",
+        descEn: "Lovely quiet aesthetic café, ideal for reading or working on your laptop.",
+        map: "https://maps.google.com/?q=115+D%C6%B0%C6%A1ng+V%C6%B0%C6%A1ng+H%E1%BB%B7,+%C4%90%C3%A0+N%E1%BA%B5ng"
+      },
+      {
+        id: "cf2",
+        cat: "coffee",
+        mainCat: "coffee",
+        name: "Mayaca Garden Coffee",
+        dist: "150m away - 2 min walk",
+        distVi: "Cách 150m - 2 phút đi bộ",
+        addr: "144 Nguyễn Duy Hiệu",
+        rating: "4.1⭐",
+        reviews: "335+",
+        descVi: "Cà phê sân vườn xanh mát ngay góc phố, hạt cà phê rang xay đậm đà.",
+        descEn: "Lush green garden café right around the corner, serving rich roasted local beans.",
+        map: "https://maps.google.com/?q=144+Nguy%E1%BB%85n+Duy+Hi%E1%BB%87u,+%C4%90%C3%A0+N%E1%BA%B5ng"
+      },
+      {
+        id: "cf3",
+        cat: "coffee",
+        mainCat: "coffee",
+        name: "Amaya Cà Phê",
+        dist: "190m away - 2 min walk",
+        distVi: "Cách 190m - 2 phút đi bộ",
+        addr: "179 Đặng Vũ Hỷ",
+        rating: "4.9⭐",
+        reviews: "180+",
+        descVi: "Không gian trang trí tinh tế, đồ uống đặc trưng ngon miệng và phong cách thư giãn.",
+        descEn: "Tastefully decorated spot offering specialty drinks and a relaxing vibe.",
+        map: "https://maps.google.com/?q=179+D%C6%B0%C6%A1ng+V%C6%B0%C6%A1ng+H%E1%BB%B7,+%C4%90%C3%A0+N%E1%BA%B5ng"
+      },
+      {
+        id: "cf4",
+        cat: "coffee",
+        mainCat: "coffee",
+        name: "CRAFT Café",
+        dist: "200m away - 3 min walk",
+        distVi: "Cách 200m - 3 phút đi bộ",
+        addr: "126/20 Nguyễn Duy Hiệu",
+        rating: "4.7⭐",
+        reviews: "661+",
+        descVi: "Góc cà phê mộc mạc xinh xắn nằm ẩn mình trong hẻm yên tĩnh.",
+        descEn: "Rustic coffee nook tucked away in a quiet alley.",
+        map: "https://maps.google.com/?q=126/20+Nguy%E1%BB%85n+Duy+Hi%E1%BB%87u,+%C4%90%C3%A0+N%E1%BA%B5ng"
+      },
+      {
+        id: "cf5",
+        cat: "coffee",
+        mainCat: "coffee",
+        name: "KATINAT Nguyễn Văn Thoại",
+        dist: "300m away - 4 min walk",
+        distVi: "Cách 300m - 4 phút đi bộ",
+        addr: "120 Nguyễn Văn Thoại",
+        rating: "3.8⭐",
+        reviews: "515+",
+        descVi: "Chuỗi cà phê hiện đại nổi tiếng với trà sữa Ô Long béo ngậy và không gian đẹp.",
+        descEn: "Modern coffee chain famous for creamy Oolong milk teas and stylish ambiance.",
+        map: "https://maps.google.com/?q=120+Nguy%E1%BB%85n+V%C4%83n+Tho%E1%BA%A1i,+%C4%90%C3%A0+N%E1%BA%B5ng"
+      },
+      {
+        id: "cf6",
+        cat: "coffee",
+        mainCat: "coffee",
+        name: "KOI Thé Nguyễn Văn Thoại",
+        dist: "300m away - 4 min walk",
+        distVi: "Cách 300m - 4 phút đi bộ",
+        addr: "151 Nguyễn Văn Thoại",
+        rating: "4.5⭐",
+        reviews: "270+",
+        descVi: "Thương hiệu trà sữa quốc tế nổi tiếng với các dòng Macchiato chuẩn vị.",
+        descEn: "Famous international boba tea brand renowned for signature Macchiato series.",
+        map: "https://maps.google.com/?q=151+Nguy%E1%BB%85n+V%C4%83n+Tho%E1%BA%A1i,+%C4%90%C3%A0+N%E1%BA%B5ng"
+      },
+      {
+        id: "cf7",
+        cat: "coffee",
+        mainCat: "coffee",
+        name: "Soul & Savor - Coffee & Vegetarian",
+        dist: "350m away - 5 min walk",
+        distVi: "Cách 350m - 5 phút đi bộ",
+        addr: "72/21 Nguyễn Văn Thoại",
+        rating: "4.9⭐",
+        reviews: "616+",
+        descVi: "Góc yên bình trong hẻm nhỏ phục vụ đồ uống chất lượng và các món ăn chay lành mạnh.",
+        descEn: "Cozy alley sanctuary serving quality drinks and healthy vegetarian meals.",
+        map: "https://maps.google.com/?q=72/21+Nguy%E1%BB%85n+V%C4%83n+Tho%E1%BA%A1i,+%C4%90%C3%A0+N%E1%BA%B5ng"
+      },
+      {
+        id: "cf8",
+        cat: "coffee",
+        mainCat: "coffee",
+        name: "MƠ - Cà Phê & Trà",
+        dist: "450m away - 6 min walk",
+        distVi: "Cách 450m - 6 phút đi bộ",
+        addr: "41 Châu Thị Vĩnh Tế",
+        rating: "4.9⭐",
+        reviews: "206+",
+        descVi: "Quán cà phê trà nhỏ nhắn xinh xắn với nhiều loại nước uống thủ công ngon.",
+        descEn: "Cute local tea and coffee boutique with artisanal drinks.",
+        map: "https://maps.google.com/?q=41+Ch%C3%A2u+Th%E1%BB%8B+V%C6%A9nh+T%E1%BA%BF,+%C4%90%C3%A0+N%E1%BA%B5ng"
+      },
+      {
+        id: "cf9",
+        cat: "coffee",
+        mainCat: "coffee",
+        name: "Cà Phê Muối Huế - Bản",
+        dist: "500m away - 7 min walk",
+        distVi: "Cách 500m - 7 phút đi bộ",
+        addr: "63 Châu Thị Vĩnh Tế",
+        rating: "4.4⭐",
+        reviews: "84+",
+        descVi: "Thưởng thức cà phê muối chuẩn vị Huế với lớp kem muối béo ngậy thơm ngon.",
+        descEn: "Try authentic Hue-style Salt Coffee with rich salted cream foam.",
+        map: "https://maps.google.com/?q=63+Ch%C3%A2u+Th%E1%BB%8B+V%C6%A9nh+T%E1%BA%BF,+%C4%90%C3%A0+N%E1%BA%B5ng"
+      },
+      {
+        id: "cf10",
+        cat: "coffee",
+        mainCat: "coffee",
+        name: "Passport Coffee Lab",
+        dist: "550m away - 7 min walk",
+        distVi: "Cách 550m - 7 phút đi bộ",
+        addr: "78 Mai Thúc Lân",
+        rating: "4.8⭐",
+        reviews: "521+",
+        descVi: "Quán cà phê chuyên nghiệp với Pour-over, Espresso chất lượng cao và đồ ăn sáng ngon.",
+        descEn: "Specialty coffee shop featuring pour-overs, espresso, and delicious brunch items.",
+        map: "https://maps.google.com/?q=78+Mai+Th%C3%BAc+L%C3%A2n,+%C4%90%C3%A0+N%E1%BA%B5ng"
+      },
+      {
+        id: "cf11",
+        cat: "coffee",
+        mainCat: "coffee",
+        name: "Wind Garden Coffee",
+        dist: "500m away - 2 min drive",
+        distVi: "Cách 500m - 2 phút đi xe",
+        addr: "72 Lê Mạnh Trinh",
+        rating: "4.4⭐",
+        reviews: "1.6k+",
+        descVi: "Quán cà phê sân vườn rộng rãi, nhiều cây xanh thoáng mát.",
+        descEn: "Spacious garden environment with plenty of shade and open air.",
+        map: "https://maps.google.com/?q=72+L%C3%AA+M%E1%BA%A1nh+Trinh,+%C4%90%C3%A0+N%E1%BA%B5ng"
+      },
+      {
+        id: "cf12",
+        cat: "coffee",
+        mainCat: "coffee",
+        name: "Gấu Kafe",
+        dist: "600m away - 7 min walk",
+        distVi: "Cách 600m - 7 phút đi bộ",
+        addr: "78/3 Nguyễn Thiện Kế",
+        rating: "4.6⭐",
+        reviews: "563+",
+        descVi: "Góc cà phê yên tĩnh giấu mình ngay trong kiệt gần nhà.",
+        descEn: "Quiet hidden coffee spot tucked away right in our alley.",
+        map: "https://maps.google.com/?q=78/3+Nguy%E1%BB%85n+Thi%E1%BB%87n+K%E1%BA%BF,+%C4%90%C3%A0+N%E1%BA%B5ng"
+      },
+
+      // 🍹 Bar & Pub
+      {
+        id: "bar1",
+        cat: "nightlife",
+        mainCat: "bar",
+        name: "Section 30 - Craft Beer & Cocktails",
+        dist: "600m away - 2 min drive",
+        distVi: "Cách 600m - 2 phút đi xe",
+        addr: "30 An Thượng 30",
+        rating: "4.6⭐",
+        reviews: "Popular",
+        descVi: "Pub bia thủ công với âm nhạc chil, rất hợp cho buổi tối giao lưu thư giãn.",
+        descEn: "Local craft beer pub with chilling tunes, great for casual evening hangouts.",
+        map: "https://maps.google.com/?q=30+An+Th%C6%B0%E1%BB%A3ng+30,+%C4%90%C3%A0+N%E1%BA%B5ng"
+      },
+      {
+        id: "bar2",
+        cat: "nightlife",
+        mainCat: "bar",
+        name: "Trilogy | Café, Focaccia & Bar",
+        dist: "650m away - 2 min drive",
+        distVi: "Cách 650m - 2 phút đi xe",
+        addr: "110 Mai Thúc Lân",
+        rating: "4.9⭐",
+        reviews: "393+",
+        descVi: "Phục vụ bánh Focaccia Ý ngon ban ngày, chuyển thành quán Bar ấm cúng về đêm.",
+        descEn: "Fresh Italian Focaccia by day, turning into an intimate bar vibe at night.",
+        map: "https://maps.google.com/?q=110+Mai+Th%C3%BAc+L%C3%A2n,+%C4%90%C3%A0+N%E1%BA%B5ng"
+      },
+      {
+        id: "bar3",
+        cat: "nightlife",
+        mainCat: "bar",
+        name: "Dirty Fingers BBQ & Rock Bar",
+        dist: "700m away - 3 min drive",
+        distVi: "Cách 700m - 3 phút đi xe",
+        addr: "404 Võ Nguyên Giáp (Beachfront)",
+        rating: "4.4⭐",
+        reviews: "Beach Rock",
+        descVi: "Rock Bar ven biển phong cách Mỹ với nhạc sống, bia lạnh và đồ nướng ngon.",
+        descEn: "American-style beachfront rock bar with live music, cold beer, and tasty BBQ.",
+        map: "https://maps.google.com/?q=404+V%C3%B5+Nguy%E1%BB%85n+Gi%C3%A1p,+%C4%90%C3%A0+N%E1%BA%B5ng"
+      },
+      {
+        id: "bar4",
+        cat: "nightlife",
+        mainCat: "bar",
+        name: "Esco Beach Bar Da Nang",
+        dist: "800m away - 3 min drive",
+        distVi: "Cách 800m - 3 phút đi xe",
+        addr: "Lô 12 Võ Nguyên Giáp",
+        rating: "4.5⭐",
+        reviews: "Oceanfront",
+        descVi: "Beach Bar sát biển với múa lửa, DJ và cocktail tuyệt đẹp.",
+        descEn: "Oceanside beach bar featuring fire shows, DJ sets, and great cocktails.",
+        map: "https://maps.google.com/?q=Lot+12+V%C3%B5+Nguy%E1%BB%85n+Gi%C3%A1p,+%C4%90%C3%A0+N%E1%BA%B5ng"
+      }
+    ];
+
+    const categoryKeys = [
+      { id: 'all', key: 'catAll' },
+      { id: 'banhmi', key: 'catBanhMi' },
+      { id: 'myquang', key: 'catMyQuang' },
+      { id: 'comnha', key: 'catComNha' },
+      { id: 'banhtrang', key: 'catBanhTrang' },
+      { id: 'bunchaca', key: 'catBunChaCa' },
+      { id: 'bunbo', key: 'catBunBo' },
+      { id: 'banhxeo', key: 'catBanhXeo' },
+      { id: 'haisan', key: 'catHaiSan' },
+      { id: 'coffee', key: 'catCoffee' },
+      { id: 'nightlife', key: 'catNightlife' }
+    ];
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      const t = translations[lang];
+
+      document.getElementById('langViBtn').className = lang === 'vi' 
+        ? "px-3 py-1 rounded-full transition-all duration-200 shadow-sm bg-white text-brand-700 font-semibold"
+        : "px-3 py-1 rounded-full transition-all duration-200 text-warmText-secondary hover:text-warmText-primary";
+      
+      document.getElementById('langEnBtn').className = lang === 'en' 
+        ? "px-3 py-1 rounded-full transition-all duration-200 shadow-sm bg-white text-brand-700 font-semibold"
+        : "px-3 py-1 rounded-full transition-all duration-200 text-warmText-secondary hover:text-warmText-primary";
+
+      document.getElementById('headerSubtitle').innerText = t.subtitle;
+      document.getElementById('introText').innerHTML = t.intro;
+      document.getElementById('searchInput').placeholder = t.searchPlaceholder;
+      document.getElementById('emptyStateText').innerText = t.empty;
+
+      document.getElementById('navAllText').innerText = t.navAll;
+      document.getElementById('navFoodText').innerText = t.navFood;
+      document.getElementById('navSeafoodText').innerText = t.navSeafood;
+      document.getElementById('navCoffeeText').innerText = t.navCoffee;
+      document.getElementById('navBarText').innerText = t.navBar;
+
+      renderTabs();
+      renderPlaces();
+    }
+
+    function renderTabs() {
+      const container = document.getElementById('categoryTabs');
+      const t = translations[currentLang];
+      
+      container.innerHTML = categoryKeys.map(cat => {
+        const isActive = currentCategory === cat.id;
+        const activeClass = isActive 
+          ? 'bg-brand-500 text-white shadow-sm border-brand-500 font-semibold' 
+          : 'bg-white text-warmText-secondary border-cream-200 hover:bg-cream-100';
+        return `
+          <button onclick="selectCategory('${cat.id}')" class="whitespace-nowrap px-3 py-1.5 rounded-full text-xs border transition-all duration-200 ${activeClass}">
+            ${t[cat.key]}
+          </button>
+        `;
+      }).join('');
+    }
+
+    function scrollTabs(amount) {
+      const tabs = document.getElementById('categoryTabs');
+      tabs.scrollBy({ left: amount, behavior: 'smooth' });
+    }
+
+    function setupDragScroll() {
+      const slider = document.getElementById('categoryTabs');
+      let isDown = false;
+      let startX;
+      let scrollLeft;
+
+      slider.addEventListener('mousedown', (e) => {
+        isDown = true;
+        startX = e.pageX - slider.offsetLeft;
+        scrollLeft = slider.scrollLeft;
+      });
+      slider.addEventListener('mouseleave', () => { isDown = false; });
+      slider.addEventListener('mouseup', () => { isDown = false; });
+      slider.addEventListener('mousemove', (e) => {
+        if(!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - slider.offsetLeft;
+        const walk = (x - startX) * 2;
+        slider.scrollLeft = scrollLeft - walk;
+      });
+    }
+
+    function selectCategory(catId) {
+      currentCategory = catId;
+      renderTabs();
+      renderPlaces();
+    }
+
+    function filterMainCategory(mainCat) {
+      if (mainCat === 'all') currentCategory = 'all';
+      else if (mainCat === 'food') currentCategory = 'banhmi';
+      else if (mainCat === 'seafood') currentCategory = 'haisan';
+      else if (mainCat === 'coffee') currentCategory = 'coffee';
+      else if (mainCat === 'bar') currentCategory = 'nightlife';
+      
+      renderTabs();
+      renderPlaces();
+    }
+
+    function handleSearch() {
+      renderPlaces();
+    }
+
+    function renderPlaces() {
+      const container = document.getElementById('placesContainer');
+      const emptyState = document.getElementById('emptyState');
+      const searchVal = document.getElementById('searchInput').value.toLowerCase().trim();
+      const t = translations[currentLang];
+
+      const filtered = places.filter(p => {
+        const matchCat = (currentCategory === 'all') || (p.cat === currentCategory);
+        const matchSearch = !searchVal || 
+          p.name.toLowerCase().includes(searchVal) || 
+          p.addr.toLowerCase().includes(searchVal) || 
+          p.descVi.toLowerCase().includes(searchVal) || 
+          p.descEn.toLowerCase().includes(searchVal);
+        return matchCat && matchSearch;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = '';
+        emptyState.classList.remove('hidden');
+        return;
+      }
+
+      emptyState.classList.add('hidden');
+      container.innerHTML = filtered.map(p => {
+        const dist = currentLang === 'vi' ? p.distVi : p.dist;
+        const desc = currentLang === 'vi' ? p.descVi : p.descEn;
+
+        return `
+          <div class="bg-white rounded-2xl p-4 border border-cream-200 shadow-sm hover:shadow-md transition duration-200">
+            <div class="flex justify-between items-start gap-2 mb-1.5">
+              <h3 class="font-bold text-sm text-warmText-primary leading-snug">
+                <a href="${p.map}" target="_blank" class="hover:text-brand-600 transition">
+                  ${p.name}
+                </a>
+              </h3>
+              <span class="shrink-0 text-[10px] font-semibold px-2 py-0.5 rounded-full bg-brand-100 text-brand-700 border border-brand-200">
+                ${dist}
+              </span>
+            </div>
+
+            <div class="flex items-center gap-2 text-xs text-warmText-secondary mb-2">
+              <span>📍 ${p.addr}</span>
+              <span class="text-cream-300">|</span>
+              <span class="font-semibold text-amber-600 bg-amber-50 px-1.5 py-0.2 rounded border border-amber-200/60">${p.rating}</span>
+              <span class="text-[11px] text-warmText-muted">(${p.reviews} ${t.reviews})</span>
+            </div>
+
+            <p class="text-xs text-warmText-secondary leading-relaxed pt-2 border-t border-dashed border-cream-200">
+              ${desc}
+            </p>
+
+            <a href="${p.map}" target="_blank" class="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-brand-700 bg-brand-50 hover:bg-brand-100 px-3 py-1.5 rounded-xl border border-brand-200 transition">
+              ${t.mapsBtn}
+            </a>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Initialize
+    window.onload = () => {
+      setLanguage('vi');
+      setupDragScroll();
+    };
+  </script>
 </body>
 </html>
